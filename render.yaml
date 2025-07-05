@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: django-app
+    runtime: python
+    buildCommand: |
+      pip install -r requirements.txt
+      python manage.py collectstatic --noinput
+      python manage.py migrate
+    startCommand: gunicorn app.wsgi:application --bind 0.0.0.0:$PORT
+    envVars:
+      - key: DEBUG
+        value: "False"
+      - key: SECRET_KEY
+        generateValue: true
+      - key: WEB_CONCURRENCY
+        value: "4"
+      - key: DATABASE_URL
+        value: postgres://neondb_owner:npg_7RxfJHe5MKWb@ep-frosty-morning-a14cotxk-pooler.ap-southeast-1.aws.neon.tech:5432/neondb?sslmode=require
+    healthCheckPath: /
