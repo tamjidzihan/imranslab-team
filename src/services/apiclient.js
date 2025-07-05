@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const APICLIENT = import.meta.env.VITE_APICLIENT
+const APICLIENT = import.meta.env.VITE_APICLIENT || "https://imranslab-team.onrender.com/"
 
 const apiClient = axios.create({
     baseURL: APICLIENT,
