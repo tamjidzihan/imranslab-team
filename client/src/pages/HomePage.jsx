@@ -6,7 +6,7 @@ import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import ScrollToTopButton from "../Helper/ScrollToTopButton";
 import LeaderSection from "../components/LeaderSection/LeaderSection";
-import Leadershipteam from "../components/LeaderSection/leadershipteam";
+import Leadershipteam from "../components/LeaderSection/Leadershipteam"
 import TeamStatistics from "../components/LeaderSection/TeamStatistics";
 
 const HomePage = () => {
