@@ -94,13 +94,27 @@ WSGI_APPLICATION = 'app.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'imranslab-team',
-        'USER': 'postgres',
-        'PASSWORD': 'postgres',
-        'HOST': "localhost",
-        'PORT': "5432",
+        'NAME': 'neondb',
+        'USER': 'neondb_owner',
+        'PASSWORD': 'npg_7RxfJHe5MKWb',
+        'HOST': 'ep-frosty-morning-a14cotxk-pooler.ap-southeast-1.aws.neon.tech',
+        'PORT': '5432',
+        'OPTIONS': {
+            'sslmode': 'require',
+            'channel_binding': 'require',
+        },
     }
 }
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'imranslab-team',
+#         'USER': 'postgres',
+#         'PASSWORD': 'postgres',
+#         'HOST': "localhost",
+#         'PORT': "5432",
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
