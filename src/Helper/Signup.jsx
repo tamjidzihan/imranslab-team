@@ -25,9 +25,11 @@ const SignUp = () => {
       return;
     }
 
-    await signup(username, password, email);
+    const success = await signup(username, password, email);
 
-    navigate("/");
+    if (success) {
+      navigate("/");
+    }
 
     // Clear the error if everything is fine
     setError("");

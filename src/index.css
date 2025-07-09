@@ -3,14 +3,16 @@
 @tailwind components;
 @tailwind utilities;
 body {
-    @apply bg-[#fff] text-gray-300 font-inter overflow-x-hidden;
+    @apply bg-[#fff] text-gray-300 font-inter;
 }
 
+
+/* 
 @layer components {
     .sub-menu {
         @apply absolute top-[4.2rem] p-[15px] rounded-[6px] origin-[50%_-170px] backdrop-blur bg-[#0A2B42];
     }
-}
+} */
 
 @layer utilities {
     .flex-center {

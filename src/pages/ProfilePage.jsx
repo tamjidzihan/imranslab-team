@@ -15,15 +15,16 @@ import TechnologiesSection from '../components/Profile/TechnologiesSection/Techn
 import ProjectsSection from '../components/Profile/ProjectsSection/ProjectsSection';
 import ArticlesSection from '../components/Profile/ArticlesSection/ArticlesSection';
 import ContributionsSection from '../components/Profile/ContributionsSection/ContributionsSection';
+import { useActiveTab } from '../context/ActiveTabContext';
+
 
 const ProfilePage = () => {
-    const [activeTab, setActiveTab] = useState('profile');
+    const { activeTab, setActiveTab } = useActiveTab();
     const [editMode, setEditMode] = useState(false);
     const [formData, setFormData] = useState({});
     const [imagePreview, setImagePreview] = useState(null);
     const fileInputRef = useRef(null);
     const [alert, setAlert] = useState(null);
-
     const {
         userId,
         userData,
@@ -256,6 +257,7 @@ const ProfilePage = () => {
                             onCreate={createTechnology}
                             onUpdate={updateTechnology}
                             onDelete={deleteTechnology}
+                            showAlert={showAlert}
                         />
                     )}
                     {activeTab === 'projects' && (
@@ -266,6 +268,7 @@ const ProfilePage = () => {
                             onCreate={createProject}
                             onUpdate={updateProject}
                             onDelete={deleteProject}
+                            showAlert={showAlert}
                         />
                     )}
                     {activeTab === 'articles' && (
@@ -276,6 +279,7 @@ const ProfilePage = () => {
                             onCreate={createArticle}
                             onUpdate={updateArticle}
                             onDelete={deleteArticle}
+                            showAlert={showAlert}
                         />
                     )}
                     {activeTab === 'contributions' && (
@@ -286,6 +290,7 @@ const ProfilePage = () => {
                             onCreate={createContribution}
                             onUpdate={updateContribution}
                             onDelete={deleteContribution}
+                            showAlert={showAlert}
                         />
                     )}
                 </main>

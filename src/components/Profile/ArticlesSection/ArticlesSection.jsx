@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { PencilIcon, TrashIcon } from 'lucide-react';
 
-const ArticlesSection = ({ articles, loading, error, onCreate, onUpdate, onDelete }) => {
+const ArticlesSection = ({ articles, loading, error, onCreate, onUpdate, onDelete, showAlert }) => {
     const APICLIENT = import.meta.env.VITE_APICLIENT
     const [editMode, setEditMode] = useState(false);
     const [editingId, setEditingId] = useState(null);
@@ -26,6 +26,16 @@ const ArticlesSection = ({ articles, loading, error, onCreate, onUpdate, onDelet
     };
 
     const handleCreate = async () => {
+        if (!newArticle.title.trim()) {  // Check if link is empty
+            showAlert('warning', 'Please enter a Title');
+            return;
+        } else if (!newArticle.description.trim()) {  // Check if link is empty
+            showAlert('warning', 'Please enter a Description');
+            return;
+        } else if (!newArticle.articlelink.trim()) {  // Check if link is empty
+            showAlert('warning', 'Please enter a Article Link');
+            return;
+        }
         try {
             await onCreate(newArticle);
             setNewArticle({
@@ -34,6 +44,7 @@ const ArticlesSection = ({ articles, loading, error, onCreate, onUpdate, onDelet
                 articlelink: '',
                 image: null
             });
+            showAlert('success', 'New Article added successfully!');
             setImagePreview(null);
             setEditMode(false);
         } catch (err) {
@@ -42,6 +53,16 @@ const ArticlesSection = ({ articles, loading, error, onCreate, onUpdate, onDelet
     };
 
     const handleUpdate = async () => {
+        if (!newArticle.title.trim()) {  // Check if link is empty
+            showAlert('warning', 'Please enter a Title');
+            return;
+        } else if (!newArticle.description.trim()) {  // Check if link is empty
+            showAlert('warning', 'Please enter a Description');
+            return;
+        } else if (!newArticle.articlelink.trim()) {  // Check if link is empty
+            showAlert('warning', 'Please enter a Article Link');
+            return;
+        }
         try {
             await onUpdate(editingId, newArticle);
             setEditingId(null);
@@ -51,6 +72,7 @@ const ArticlesSection = ({ articles, loading, error, onCreate, onUpdate, onDelet
                 articlelink: '',
                 image: null
             });
+            showAlert('success', 'Article updated successfully!');
             setImagePreview(null);
         } catch (err) {
             console.error("Failed to update article:", err);
@@ -191,7 +213,10 @@ const ArticlesSection = ({ articles, loading, error, onCreate, onUpdate, onDelet
                                         <PencilIcon size={16} />
                                     </button>
                                     <button
-                                        onClick={() => onDelete(article.id)}
+                                        onClick={() => {
+                                            onDelete(article.id)
+                                            showAlert('info', 'Article deleted successfully!');
+                                        }}
                                         className="p-1 text-gray-500 hover:text-red-600"
                                     >
                                         <TrashIcon size={16} />

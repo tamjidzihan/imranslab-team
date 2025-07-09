@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { PencilIcon, TrashIcon } from 'lucide-react';
 
-const ProjectsSection = ({ projects, loading, error, onCreate, onUpdate, onDelete }) => {
+const ProjectsSection = ({ projects, loading, error, onCreate, onUpdate, onDelete, showAlert }) => {
     const APICLIENT = import.meta.env.VITE_APICLIENT
     const [editMode, setEditMode] = useState(false);
     const [editingId, setEditingId] = useState(null);
@@ -27,6 +27,16 @@ const ProjectsSection = ({ projects, loading, error, onCreate, onUpdate, onDelet
     };
 
     const handleCreate = async () => {
+        if (!newProject.technologies.trim()) {  // Check if link is empty
+            showAlert('warning', 'Please enter a Technologies');
+            return;
+        } else if (!newProject.description.trim()) {  // Check if link is empty
+            showAlert('warning', 'Please enter a Description');
+            return;
+        } else if (!newProject.projectlink.trim()) {  // Check if link is empty
+            showAlert('warning', 'Please enter a Project Link');
+            return;
+        }
         try {
             await onCreate(newProject);
             setNewProject({
@@ -36,6 +46,7 @@ const ProjectsSection = ({ projects, loading, error, onCreate, onUpdate, onDelet
                 role: 'intern',
                 image: null
             });
+            showAlert('success', 'New Project added successfully!');
             setImagePreview(null);
             setEditMode(false);
         } catch (err) {
@@ -44,6 +55,16 @@ const ProjectsSection = ({ projects, loading, error, onCreate, onUpdate, onDelet
     };
 
     const handleUpdate = async () => {
+        if (!newProject.technologies.trim()) {  // Check if link is empty
+            showAlert('warning', 'Please enter Technologies');
+            return;
+        } else if (!newProject.description.trim()) {  // Check if link is empty
+            showAlert('warning', 'Please enter a Description');
+            return;
+        } else if (!newProject.projectlink.trim()) {  // Check if link is empty
+            showAlert('warning', 'Please enter a Project Link');
+            return;
+        }
         try {
             await onUpdate(editingId, newProject);
             setEditingId(null);
@@ -54,6 +75,7 @@ const ProjectsSection = ({ projects, loading, error, onCreate, onUpdate, onDelet
                 role: 'intern',
                 image: null
             });
+            showAlert('success', ' Project Update successfully!');
             setImagePreview(null);
         } catch (err) {
             console.error("Failed to update project:", err);
@@ -199,7 +221,10 @@ const ProjectsSection = ({ projects, loading, error, onCreate, onUpdate, onDelet
                                         <PencilIcon size={16} />
                                     </button>
                                     <button
-                                        onClick={() => onDelete(project.id)}
+                                        onClick={() => {
+                                            onDelete(project.id)
+                                            showAlert('info', 'Project Deleted successfully')
+                                        }}
                                         className="p-1 text-gray-500 hover:text-red-600"
                                     >
                                         <TrashIcon size={16} />
