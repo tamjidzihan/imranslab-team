@@ -41,7 +41,7 @@ const HomePage = () => {
       />
 
       {/* why choose us */}
-      <section className="py-16 bg-[#FCFCFC]" ref={choseRef}>
+      <section className="py-6 bg-[#FCFCFC]" ref={choseRef}>
         <div className="w-full px-5 mb-10 text-center md:px-16">
           <motion.h1
             initial={{ opacity: 0, x: -50 }}

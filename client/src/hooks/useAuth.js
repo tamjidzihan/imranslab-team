@@ -42,7 +42,16 @@ const useAuth = () => {
             // Auto-login after successful registration (optional)
             await login(username, password);
         } catch (error) {
-            setAuthError(error.response?.data || "Signup failed");
+            // Format the error response to be more user-friendly
+            if (error.response?.data) {
+                // Convert object errors to string messages
+                const errorMsgs = Object.entries(error.response.data)
+                    .map(([key, value]) => `${key}: ${Array.isArray(value) ? value.join(' ') : value}`)
+                    .join('\n');
+                setAuthError(errorMsgs);
+            } else {
+                setAuthError("Signup failed. Please try again.");
+            }
         } finally {
             setAuthLoading(false);
         }

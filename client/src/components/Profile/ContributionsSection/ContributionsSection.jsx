@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { PencilIcon, TrashIcon } from 'lucide-react';
 
-const ContributionsSection = ({ contributions, loading, error, onCreate, onUpdate, onDelete }) => {
+const ContributionsSection = ({ contributions, loading, error, onCreate, onUpdate, onDelete, showAlert }) => {
     const [editMode, setEditMode] = useState(false);
     const [editingId, setEditingId] = useState(null);
     const [newContribution, setNewContribution] = useState({
@@ -9,9 +9,14 @@ const ContributionsSection = ({ contributions, loading, error, onCreate, onUpdat
     });
 
     const handleCreate = async () => {
+        if (!newContribution.keys.trim()) {  // Check if link is empty
+            showAlert('warning', 'Please enter a Contribution');
+            return;
+        }
         try {
             await onCreate(newContribution);
             setNewContribution({ keys: '' });
+            showAlert('success', 'Contribution added successfully!');
             setEditMode(false);
         } catch (err) {
             console.error("Failed to create contribution:", err);
@@ -19,6 +24,10 @@ const ContributionsSection = ({ contributions, loading, error, onCreate, onUpdat
     };
 
     const handleUpdate = async () => {
+        if (!newContribution.keys.trim()) {  // Check if link is empty
+            showAlert('warning', 'Please enter a Contribution');
+            return;
+        }
         try {
             await onUpdate(editingId, { keys: newContribution.keys });
             setEditingId(null);
@@ -113,7 +122,10 @@ const ContributionsSection = ({ contributions, loading, error, onCreate, onUpdat
                                         <PencilIcon size={16} />
                                     </button>
                                     <button
-                                        onClick={() => onDelete(contribution.id)}
+                                        onClick={() => {
+                                            onDelete(contribution.id)
+                                            showAlert('info', 'Contribution deleted successfully!');
+                                        }}
                                         className="p-1 text-gray-500 hover:text-red-600"
                                     >
                                         <TrashIcon size={16} />
@@ -124,7 +136,7 @@ const ContributionsSection = ({ contributions, loading, error, onCreate, onUpdat
                     ))
                 )}
             </div>
-        </div>
+        </div >
     );
 };
 

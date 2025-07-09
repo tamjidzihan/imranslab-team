@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { PencilIcon, TrashIcon } from 'lucide-react';
 
-const TechnologiesSection = ({ technologies, loading, error, onCreate, onUpdate, onDelete }) => {
+const TechnologiesSection = ({ technologies, loading, error, onCreate, onUpdate, onDelete, showAlert }) => {
     const [editMode, setEditMode] = useState(false);
     const [newTech, setNewTech] = useState({
         technology: ''
@@ -9,9 +9,14 @@ const TechnologiesSection = ({ technologies, loading, error, onCreate, onUpdate,
     const [editingId, setEditingId] = useState(null);
 
     const handleCreate = async () => {
+        if (!newTech.technology.trim()) {
+            showAlert('warning', 'Please enter a Technology');
+            return;
+        }
         try {
             await onCreate(newTech);
             setNewTech({ technology: '' });
+            showAlert('success', 'Technology added successfully!');
             setEditMode(false);
         } catch (err) {
             console.error("Failed to create technology:", err);
@@ -19,6 +24,10 @@ const TechnologiesSection = ({ technologies, loading, error, onCreate, onUpdate,
     };
 
     const handleUpdate = async () => {
+        if (!newTech.technology.trim()) {
+            showAlert('warning', 'Please enter a Technology');
+            return;
+        }
         try {
             await onUpdate(editingId, { technology: newTech.technology });
             setEditingId(null);

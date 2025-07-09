@@ -84,7 +84,7 @@ const Contact = () => {
       {/* contact from */}
       <section className="px-4 py-12 bg-white sm:px-6 lg:px-12">
         <div className="mx-auto max-w-7xl">
-          <div className="grid items-start grid-cols-1 gap-10 md:grid-cols-2 bg-[#FCFCFC]">
+          <div className="grid items-start grid-cols-1 md:grid-cols-2 bg-[#FCFCFC] shadow-2xl border-2 border-[#15919B]">
             {/* Contact Info */}
             <motion.div
               initial={{ opacity: 0, x: -40 }}
@@ -94,8 +94,9 @@ const Contact = () => {
               className="space-y-8"
             >
               <img
-                src="https://i.ibb.co/ymTxLSqv/pexels-yankrukov-8867434.jpg"
+                src="https://i.ibb.co/ymb6H3Wk/pexels-ann-h-45017-4672950.jpg"
                 alt=""
+                className="w-full h-[400px] md:h-[500px] lg:h-[585px] object-cover"
               />
             </motion.div>
 

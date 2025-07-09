@@ -22,6 +22,8 @@ const Login = () => {
     if (success) {
       navigate("/"); // ✅ Redirect only if login was successful
     }
+
+    // Clear the error if everything is fine
     setError("");
   };
 
